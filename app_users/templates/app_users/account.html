@@ -1,0 +1,33 @@
+<html lang='en'>
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>{% trans 'Account' %}</title>
+</head>
+<body>
+{% if user.is_authenticated %}
+<p>Hi {{ user.username }}!</p>
+<p><a href="{% url 'logout' %}">{% trans 'Log out' %}</a></p>
+{% else %}
+<p>You are not logged in.</p>
+<a href="{% url 'login' %}">{% trans 'Log in' %}</a>
+{% endif %}
+    <h2>{% trans 'Account' %}</h2>
+<ul>
+    <li><b>{{ username }}</b></li>
+    <li><b>{% trans 'Balance' %}: </b>{{ balance }}</li>
+    <li><b>{% trans 'Promotions' %}: </b>{{ promotions }}</li>
+    <li><b>{% trans 'Offers' %}: </b>{{ offers }}</li>
+    {% cache 500 footer request.user.username %}
+    <li><b>{% trans 'Payment history' %}: </b>{{ payment_history }}</li>
+    {% endcache %}
+    <li><b>{% trans 'Status' %}: </b>{{ status }}</li>
+</ul>
+<p>
+<button>
+    <a href="{% url 'balance' %}">{% trans 'Top up balance' %}</a>
+</button>
+</p>
+</body>
+{% endblock %}
+</html>
