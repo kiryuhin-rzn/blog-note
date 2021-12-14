@@ -1,0 +1,40 @@
+.page-header {
+    background-color: #4682B4;
+    margin-top: 0;
+    padding: 20px 20px 20px 40px;
+}
+
+.page-header h1, .page-header h1 a, .page-header h1 a:visited, .page-header h1 a:active {
+    color: #ffffff;
+    font-size: 36pt;
+    text-decoration: none;
+}
+
+.cont {
+    margin-left: 0px;
+}
+
+.login {
+    margin-left: 0px;
+}
+
+.post {
+    margin-left: 0px;
+}
+
+
+.content {
+    margin-left: 0px;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Lobster', cursive;
+}
+
+.news {
+    margin-bottom: 70px;
+}
+
+body {
+    padding-left: 70px;
+}

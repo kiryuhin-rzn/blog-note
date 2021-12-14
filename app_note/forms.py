@@ -1,11 +1,11 @@
-'''from django import forms
-from .models import News, Comment, File
+from django import forms
+from .models import Note, Comment, File
 
 
-class NewsForm(forms.ModelForm):
+class NoteForm(forms.ModelForm):
 
     class Meta:
-        model = News
+        model = Note
         fields = ('title', 'text',)
 
 
@@ -31,5 +31,5 @@ class DocumentForm(forms.ModelForm):
 class MultiFileForm(forms.Form):
     file_field = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True}))
 
-class UploadNewsForm(forms.Form):
-    file = forms.FileField()'''
+class UploadNoteForm(forms.Form):
+    file = forms.FileField()

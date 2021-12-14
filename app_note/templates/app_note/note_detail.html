@@ -1,0 +1,48 @@
+{% extends "app_note/base.html" %}
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+{% load static %}
+{% load i18n %}
+<link rel="stylesheet" href="{% static 'static/app_note/css/note.css' %}">
+<title>{{ object.title }}</title>
+</head>
+<body>
+{% block content %}
+<div class="post">
+<h1>{{ object.title }}</h1>
+{% for photo in note.file.all %}
+<img src="{{ photo.file.url }}" width="25%" alt="Фото">
+{% endfor %}
+<p>{{ object.text|linebreaks }}</p>
+<p>{{ object.author }}</p>
+<p>{{ object.status }}</p>
+<p>{{ object.date_updated }}</p>
+<p>{{ object.date_publication }}</p>
+<a href="{% url 'note_edit' pk=note.pk %}">Редактировать</a>
+<a href="{% url 'note_delete' pk=note.pk %}">Удалить</a>
+<a href="{% url 'upload_files' pk=note.pk %}">Загрузить файл</a>
+</div>
+<hr>
+{{form.errors}}
+<h1>Добавить комментарий</h1>
+    <form method="POST" class="post-form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Отправить</button>
+    </form>
+{% for comment in note.comments.all %}
+<div class="comment">
+    {% if user.is_authenticated %}
+    {{ request.user }}
+    {% else %}
+    <strong>{{ comment.author }}</strong>
+    {% endif %}
+<p>{{ comment.text|linebreaks }}</p>
+</div>
+{% empty %}
+<p>Пока нет комментарий :(</p>
+{% endfor %}
+{% endblock %}
+</body>
+</html>
