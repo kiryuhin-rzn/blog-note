@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 from app_note.views import upload_note
-from .views import NoteListView, NoteDetailView, NoteUpdateView, NoteCreateView, NoteDeleteView
+from .views import NoteListView, NoteDetailView, NoteUpdateView, NoteCreateView, NoteDeleteView, NoteSearchView
 
 
 urlpatterns = [
@@ -10,6 +10,7 @@ urlpatterns = [
     path('note/add/', NoteCreateView.as_view(), name='add_note'),
     path('note/<int:pk>/edit/', NoteUpdateView.as_view(), name='note_edit'),
     path('note/<int:pk>/delete/', NoteDeleteView.as_view(), name='note_delete'),
+    path('note/search/', NoteSearchView.as_view(), name='note_search'),
     #path('post/<int:pk>/comment/', views.add_comment_to_note, name='add_comment_to_news'),
     path('note/upload/', views.upload_file, name='upload'),
     path('note/<int:pk>/upload_files/', views.upload_files, name='upload_files'),
