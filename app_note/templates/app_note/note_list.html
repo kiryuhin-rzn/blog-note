@@ -15,11 +15,10 @@
 <ul>
 {% for note in note_list %}
 <li><td align="left"><a href="/note/{{ note.id }}">{{ note.title }}</a></td>
-    <br><td align="left">{{ note.text|truncatechars:30 }}</td></br>
+<br><td align="left">{{ note.text|truncatechars:30 }}</td></br>
 </li>
 {% endfor %}
 </ul>
-<p>{% trans 'Translated text.' %}</p>
 {% else %}
 <p>Новостей нет.</p>
 {% endif %}
