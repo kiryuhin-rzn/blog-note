@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .forms import CommentForm, UploadFileForm, DocumentForm, MultiFileForm, UploadNoteForm
-from .models import Note, File
+from app_note.forms import CommentForm, UploadFileForm, DocumentForm, MultiFileForm, UploadNoteForm, NoteSearchForm
+from app_note.models import Note, File
 from django.views import generic
 from django.shortcuts import redirect
 from django.views.generic.edit import UpdateView
@@ -11,6 +11,8 @@ from django import forms
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import HttpResponse
 from django.urls import reverse_lazy
+from django.db.models import Q
+
 
 '''
 def sample_view(request):
@@ -23,6 +25,12 @@ class NoteListView(generic.ListView):
     template_name = 'app_note/note_list.html'
     context_object_name = 'note_list'
     queryset = Note.objects.order_by('-date_publication')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        form = NoteSearchForm()
+        context['form'] = form
+        return context
 
 
 class NoteDetailView(DetailView):
@@ -86,6 +94,18 @@ class NoteDeleteView(PermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy('note_list')
 
 
+class NoteSearchView(generic.ListView):
+    model = Note
+    template_name = 'note_search.html'
+
+    def get_queryset(self):
+        form = NoteSearchForm(self.request.GET)
+        if form.is_valid():
+            serch_field = form.cleaned_data.get('search_field')
+            object_list = Note.objects.filter(Q(title__icontains=serch_field) | Q(text__icontains=serch_field))
+            return object_list
+
+
 def upload_file(request):
     if request.method =='POST':
         upload_file_form = UploadFileForm(request.POST, request.FILES)
@@ -100,17 +120,7 @@ def upload_file(request):
     }
     return render(request, 'app_note/upload.html', context=context)
 
-#def model_form_upload(request):
-    #if request.method =='POST':
-        #form = DocumentForm(request.POST, request.FILES)
-        #if form.is_valid():
-            #form.save()
-            #return redirect('/')
-    #else:
-        #form = DocumentForm()
-    #return render(request, 'app_news/form_upload.html', {
-        #'form': form
-        #})
+
 
 
 def form_upload(request, pk):

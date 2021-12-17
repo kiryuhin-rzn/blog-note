@@ -9,6 +9,10 @@
 <title>Заметки</title>
 </head>
 {% block content %}
+<form action="{% url 'note_search' %}" method="GET" class="get-form">{% csrf_token %}
+{{ form.as_p }}
+<button type="submit" class="save btn btn-default">Поиск</button>
+</form>
 <a href="{% url 'uploads' %}">Загрузить запись</a>
 <br><a href="{% url 'add_note' %}">Добавить заметку</a></br>
 {% if note_list %}

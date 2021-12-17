@@ -21,6 +21,8 @@ class UploadFileForm(forms.Form):
     description = forms.CharField(max_length=100)
     file = forms.FileField()
 
+class NoteSearchForm(forms.Form):
+    search_field = forms.CharField(label='Search', max_length=100)
 
 class DocumentForm(forms.ModelForm):
     class Meta:
