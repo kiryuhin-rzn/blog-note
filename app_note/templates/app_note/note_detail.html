@@ -7,7 +7,6 @@
 </head>
 <body>
 {% block content %}
-<div class="post">
 <h1>{{ object.title }}</h1>
 {% for photo in note.file.all %}
 <img src="{{ photo.file.url }}" width="25%" alt="Фото">
@@ -20,7 +19,7 @@
 <a href="{% url 'note_edit' pk=note.pk %}">Редактировать</a>
 <a href="{% url 'note_delete' pk=note.pk %}">Удалить</a>
 <a href="{% url 'upload_files' pk=note.pk %}">Загрузить файл</a>
-</div>
+
 <hr>
 {{form.errors}}
 <h1>Добавить комментарий</h1>

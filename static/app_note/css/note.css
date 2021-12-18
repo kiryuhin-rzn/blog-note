@@ -10,15 +10,13 @@
     text-decoration: none;
 }
 
-.cont {
-    margin-left: 0px;
-}
 
 .login {
     margin-left: 0px;
 }
 
 .post {
+    height: 100%;
     margin-left: 0px;
 }
 
@@ -36,5 +34,15 @@ h1, h2, h3, h4 {
 }
 
 body {
-    padding-left: 70px;
+    padding-left: 430px;
+    padding-right: 430px;
+}
+
+
+.footer {
+	background-color: #4682B4;
+	padding-left: 70;
+	padding-right: 70px;
+	bottom: 0;
+	height: 80px;
 }
