@@ -32,6 +32,10 @@ ALLOWED_HOSTS = [] #'vkiryuha.pythonanywhere.com'
 
 
 
+
+
+
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
