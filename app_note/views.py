@@ -76,7 +76,7 @@ class NoteDetailView(DetailView):
 class NoteCreateView(PermissionRequiredMixin, CreateView):
     permission_required = 'app_note.can_publish'
     model = Note
-    template_name = 'app_note/add_note.html'
+    template_name = 'app_note/note_add.html'
     fields = ['title', 'text']
 
 
