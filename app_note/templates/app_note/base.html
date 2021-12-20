@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="{% static 'app_note/css/note.css' %}">
 </header>
 <body>
- <div class="topnav">
+<div class="topnav">
   <a class="active" href="{% url 'note_list' %}">WebNote</a>
   <a href="{% url 'note_add' %}">AddNote</a>
   <a href="{% url 'note_about' %}">About</a>
@@ -20,7 +20,7 @@
     <a class="ellow" href="{% url 'login' %}">Log In</a>
     <p>You are not logged in.</p>
     {% endif %}
-    </div>
+  </div>
 </div>
 <!--
 <div class="page-header">
@@ -34,13 +34,7 @@
 <div class="push"></div>
 <div class="footer">Сайт</div> -->
 
-  <footer class="bg-light text-center text-lg-start">
-  <!-- Copyright -->
-  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-    © 2020 Copyright:
-    <a class="text-dark" href="https://mdbootstrap.com/">MDBootstrap.com</a>
-  </div>
-  <!-- Copyright -->
-</footer>
+<div class="footer"><p>©WebNote</p></div>
+
 </body>
 </html>
