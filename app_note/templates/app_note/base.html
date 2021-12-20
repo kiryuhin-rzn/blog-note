@@ -8,40 +8,32 @@
 </header>
 <body>
  <div class="topnav">
-  <a class="active" href="#home">Home</a>
-  <a href="#news">News</a>
-  <a href="#contact">Contact</a>
+  <a class="active" href="{% url 'note_list' %}">WebNote</a>
+  <a href="{% url 'note_add' %}">AddNote</a>
+  <a href="{% url 'note_about' %}">About</a>
   <div class="topnav-right">
-    <a href="#search">Search</a>
     {% if user.is_authenticated %}
-    <p>Hi {{ user.username }}!</p>
     <a href="{% url 'logout' %}">Log out</a>
+    <p>Hi {{ user.username }}!</p>
     {% else %}
+    <a href="{% url 'register' %}">Register</a>
+    <a class="ellow" href="{% url 'login' %}">Log In</a>
     <p>You are not logged in.</p>
-    <a href="{% url 'login' %}">Log In</a>
     {% endif %}
-    <a href="#about">About</a>
-  </div>
+    </div>
 </div>
+<!--
 <div class="page-header">
-<div class="shadowbox">
-{% if user.is_authenticated %}
-<p>Hi {{ user.username }}!</p>
-<p><a href="{% url 'logout' %}">Log out</a></p>
-{% else %}
-<p>You are not logged in.</p>
-<a href="{% url 'login' %}">Log In</a>
-{% endif %}
 </div>
-<h1><a href="/">Заметки</a></h1>
-<div class="wrapper">
+-->
+
 <div class="content">
 {% block content %}{% endblock %}
 </div>
 <!--
 <div class="push"></div>
 <div class="footer">Сайт</div> -->
-</div>
+
   <footer class="bg-light text-center text-lg-start">
   <!-- Copyright -->
   <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">

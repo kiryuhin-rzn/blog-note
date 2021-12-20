@@ -1,0 +1,14 @@
+{% extends "app_note/base.html" %}
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+{% load i18n %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'static/app_note/css/note.css' %}">
+<title>About</title>
+</head>
+{% block content %}
+{{ note_about }}
+{% endblock %}
+</html>

@@ -13,7 +13,7 @@
 {{ form.as_p }}
 </form>
 <a href="{% url 'uploads' %}">Загрузить запись</a>
-<br><a href="{% url 'add_note' %}">Добавить заметку</a></br>
+<br><a href="{% url 'note_add' %}">Добавить заметку</a></br>
 {% if note_list %}
 <ul>
 {% for note in note_list %}

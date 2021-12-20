@@ -6,6 +6,7 @@ from django.shortcuts import redirect
 from django.views.generic.edit import UpdateView
 from django.shortcuts import get_object_or_404
 from django.views.generic.edit import CreateView, DeleteView
+from django.views.generic.base import TemplateView
 from django.views.generic import DetailView
 from django import forms
 from django.contrib.auth.mixins import PermissionRequiredMixin
@@ -19,6 +20,16 @@ def sample_view(request):
     html = '<body><h1>Django sample_view</h1><br><p>Отладка sample_view</p></body>'
     return HttpResponse(html)
 '''
+class AboutView(TemplateView):
+
+    template_name = "app_note/about.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(AboutView, self).get_context_data(**kwargs)
+        context['note_about'] = 'WebNote это веб блокнот.'
+        return context
+
+
 
 class NoteListView(generic.ListView):
     model = Note
@@ -178,6 +189,9 @@ def upload_note(request):
             'form': form
             }
     return render(request, 'app_note/upload.html', context)#было context=context вместо form: form  (поставил context вместо {'form': form})
+
+
+
 
 '''
 def add_comment_to_news(request, pk):

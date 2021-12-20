@@ -68,6 +68,7 @@ body {
     height: 100%;
     padding-left: 0px;
     padding-right: 0px;
+    margin: 0px;
 }
 
 
@@ -119,11 +120,18 @@ body {
   background-color: ecec41;
 }
 
-.topnav p {
+.topnav-right a {
   float: right;
+  background-color: #FF8C00;
+  color: #000000;
+}
+
+.topnav-right p {
+  float: left;
   color: #f2f2f2;
-  text-align: center;
+  /*text-align: center;*/
   padding: 14px 16px;
+
   text-decoration: none;
   font-size: 17px;
 }
