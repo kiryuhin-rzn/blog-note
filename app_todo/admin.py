@@ -1,3 +1,9 @@
 from django.contrib import admin
+from app_todo.models import TodoListItem
 
-# Register your models here.
+
+class TodoListItemAdmin(admin.ModelAdmin):
+    list_display = ('content', 'date_due')
+
+
+admin.site.register(TodoListItem, TodoListItemAdmin)

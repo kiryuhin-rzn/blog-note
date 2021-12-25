@@ -2,13 +2,14 @@ from django.shortcuts import render
 from django.views import generic
 from app_todo.models import TodoListItem
 from app_todo.forms import ToDoForm
+from django.http import HttpResponseRedirect
 
 
 class ToDoListView(generic.ListView):
     model = TodoListItem
     template_name = 'app_todo/todo_list.html'
     context_object_name = 'todo_list'
-    queryset = TodoListItem.objects.order_by('-date_publication')
+    queryset = TodoListItem.objects.order_by('date_due')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -21,7 +22,7 @@ class ToDoListView(generic.ListView):
         if form.is_valid():
             context = form.save(commit=False)
             context.save()
-            return render(request, 'app_todo/todo_list.html', {'form': form})
+            return HttpResponseRedirect('/todo')
         else:
             form = ToDoForm()
             return render(request, 'app_todo/todo_list.html', {'form': form})
