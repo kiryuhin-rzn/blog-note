@@ -3,6 +3,10 @@ from django.views import generic
 from app_todo.models import TodoListItem
 from app_todo.forms import ToDoForm
 from django.http import HttpResponseRedirect
+from django.views.generic.edit import DeleteView
+from django.urls import reverse_lazy
+from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.views.generic import DetailView
 
 
 class ToDoListView(generic.ListView):
@@ -26,3 +30,15 @@ class ToDoListView(generic.ListView):
         else:
             form = ToDoForm()
             return render(request, 'app_todo/todo_list.html', {'form': form})
+
+
+class ToDoDetailView(DetailView):
+    model = TodoListItem
+    template_name = 'app_todo/todo_detail.html'
+
+
+class ToDoDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = 'app_todo.can_delete'
+    model = TodoListItem
+    template_name = 'app_todo/todo_delete.html'
+    success_url = reverse_lazy('todo_list')
