@@ -11,7 +11,7 @@
 <button type="submit" class="save btn btn-default">Add To-Do</button>
 <ul>
     {% for i in todo_list %}
-    <li>{{i.content}}</li>
+    <li><td align="left"><a href="/todo/{{ i.id }}">{{i.content}}</a></td>
     {{i.date_due}}
     {% endfor %}
 </ul>
