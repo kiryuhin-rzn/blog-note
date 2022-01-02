@@ -6,7 +6,7 @@ class ToDoForm(forms.ModelForm):
 
     class Meta:
         model = TodoListItem
-        fields = ('content', 'date_due')
+        fields = ('content', 'date_due', 'user')
 
         labels = {
             'date_due': ('гггг-мм-дд'),
