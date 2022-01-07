@@ -10,6 +10,8 @@ from django.views.generic import DetailView
 from django.shortcuts import get_object_or_404
 from django import forms
 from django.http import HttpResponse
+from django.utils import timezone
+import pytz
 
 
 class ToDoListView(generic.ListView):
@@ -38,6 +40,7 @@ class ToDoListView(generic.ListView):
             form.fields['user'].widget = forms.HiddenInput()
             form.fields['user'].initial = self.request.user
             context['form'] = form
+            context['now'] = timezone.now()#timezone.localtime()
 
             return context
         else:
