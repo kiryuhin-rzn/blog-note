@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'app_users',
     'app_note',
     'app_todo',
+    'app_store',
 ]
 
 MIDDLEWARE = [

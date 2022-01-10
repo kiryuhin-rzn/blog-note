@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.views import generic
 from app_todo.models import TodoListItem
 from app_todo.forms import ToDoForm
@@ -7,11 +6,9 @@ from django.views.generic.edit import DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.views.generic import DetailView
-from django.shortcuts import get_object_or_404
 from django import forms
 from django.http import HttpResponse
 from django.utils import timezone
-import pytz
 
 
 class ToDoListView(generic.ListView):
