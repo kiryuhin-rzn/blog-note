@@ -1,38 +1,19 @@
-from django.shortcuts import render , redirect
-
+from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import  check_password
 from app_store.models import Customer
 from django.views import  View
 from app_store.models import Products
-
-from django.contrib.auth.hashers import check_password
-from app_store.models import Customer
-from django.views import View
-from app_store.models import Products
 from app_store.models import Order
-
-from django.shortcuts import render , redirect , HttpResponseRedirect
-from app_store.models import Products
 from app_store.models import Category
-from django.views import View
-
-from django.shortcuts import render , redirect , HttpResponseRedirect
-from django.contrib.auth.hashers import  check_password
-from app_store.models import Customer
-from django.views import View
-
-from django.shortcuts import render, redirect
-from django.contrib.auth.hashers import check_password
-from app_store.models import Customer
-from django.views import View
-from app_store.models import Products
-from app_store.models import Order
-from app_store.middlewares.auth import auth_middleware
-
-from django.shortcuts import render, redirect
 from django.contrib.auth.hashers import make_password
-from app_store.models import Customer
-from django.views import View
+from django.http import HttpResponseRedirect
+from django.views.generic.base import TemplateView
+from django.contrib.auth.views import LoginView
+from django.contrib.auth import authenticate, login
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 
 class Cart(View):
@@ -40,7 +21,7 @@ class Cart(View):
         ids = list(request.session.get('cart').keys())
         products = Products.get_products_by_id(ids)
         print(products)
-        return render(request , 'cart.html' , {'products' : products} )
+        return render(request , 'app_store/cart.html' , {'products' : products} )
 
 class CheckOut(View):
     def post(self, request):
@@ -65,9 +46,9 @@ class CheckOut(View):
         return redirect('cart')
 
 
-class Index(View):
+'''class Index(View):
 
-    def post(self , request):
+    def post(self, request):
         product = request.POST.get('product')
         remove = request.POST.get('remove')
         cart = request.session.get('cart')
@@ -89,16 +70,16 @@ class Index(View):
             cart[product] = 1
 
         request.session['cart'] = cart
-        print('cart' , request.session['cart'])
+        print('cart', request.session['cart'])
         return redirect('homepage')
 
 
 
     def get(self , request):
         # print()
-        return HttpResponseRedirect(f'/store{request.get_full_path()[1:]}')
+        return HttpResponseRedirect(f'{request.get_full_path()[1:]}')#/store'''
 
-def store(request):
+'''def store(request):
     cart = request.session.get('cart')
     if not cart:
         request.session['cart'] = {}
@@ -115,17 +96,75 @@ def store(request):
     data['categories'] = categories
 
     print('you are : ', request.session.get('email'))
-    return render(request, 'index.html', data)
+    return render(request, 'app_store/index.html', data)'''
 
+class StoreView(TemplateView):
 
-class Login(View):
+    template_name = "app_store/index.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(StoreView, self).get_context_data(**kwargs)
+        cart = self.request.session.get('cart')
+        if not cart:
+            self.request.session['cart'] = {}
+        products = None
+        '''cart = self.request.session.get('cart')
+        if not cart:
+            self.request.session['cart'] = {}
+        products = None
+        categories = Category.get_all_categories()
+        categoryID = self.request.GET.get('category')
+        if categoryID:
+            products = Products.get_all_products_by_categoryid(categoryID)
+        else:
+            products = Products.get_all_products();'''
+
+        categories = Category.get_all_categories()
+        categoryID = self.request.GET.get('category')
+        if categoryID:
+            products = Products.get_all_products_by_categoryid(categoryID)
+        else:
+            products = Products.get_all_products()
+        context['products'] = products
+
+        context['categories'] = categories
+        return context
+
+class AnohLoginView(LoginView):
+    logger.debug('Выполнена аутентификация пользователя')
+    template_name = 'app_store/login.html'
+
+'''class Login(View):
     return_url = None
 
     def get(self, request):
         Login.return_url = request.GET.get ('return_url')
-        return render (request, 'login.html')
+        return render (request, 'app_store/login.html')
 
-    def post(self, request):
+    def post(request):
+        email = request.POST['email']
+        password = request.POST['password']
+        user = authenticate(email=email, password=password)
+        customer = Customer.get_customer_by_email (email)
+        if user is not None:
+            flag = check_password (password, customer.password)
+            if flag:
+                request.session['customer'] = customer.id
+                return redirect('store/')
+            if user.is_active:
+                login(request, user)
+                return redirect('store/')
+            # Redirect to a success page.
+            else:
+                error_message = 'Invalid !!'
+                return render (request, 'app_store/login.html', {'error': error_message})
+            # Return a 'disabled account' error message
+
+        #else:
+            #return render (request, 'app_store/login.html', {'error': error_message})
+        # Return an 'invalid login' error message.'''
+
+'''    def post(self, request):
         email = request.POST.get ('email')
         password = request.POST.get ('password')
         customer = Customer.get_customer_by_email (email)
@@ -146,7 +185,26 @@ class Login(View):
             error_message = 'Invalid !!'
 
         print (email, password)
-        return render (request, 'login.html', {'error': error_message})
+        return render (request, 'app_store/login.html', {'error': error_message})'''
+
+
+'''from django.contrib.auth import authenticate, login
+
+def my_view(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(username=username, password=password)
+    if user is not None:
+        if user.is_active:
+            login(request, user)
+            # Redirect to a success page.
+        else:
+            # Return a 'disabled account' error message
+            ...
+    else:
+        # Return an 'invalid login' error message.'''
+
+
 
 def logout(request):
     request.session.clear()
@@ -160,12 +218,12 @@ class OrderView(View):
         customer = request.session.get('customer')
         orders = Order.get_orders_by_customer(customer)
         print(orders)
-        return render(request , 'orders.html'  , {'orders' : orders})
+        return render(request , 'app_store/orders.html'  , {'orders' : orders})
 
 
 class Signup (View):
     def get(self, request):
-        return render (request, 'signup.html')
+        return render (request, 'app_store/signup.html')
 
     def post(self, request):
         postData = request.POST
@@ -200,7 +258,7 @@ class Signup (View):
                 'error': error_message,
                 'values': value
             }
-            return render (request, 'signup.html', data)
+            return render (request, 'app_store/signup.html', data)
 
     def validateCustomer(self, customer):
         error_message = None
