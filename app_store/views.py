@@ -10,7 +10,9 @@ from django.http import HttpResponseRedirect
 from django.views.generic.base import TemplateView
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import authenticate, login
+from django.http import HttpResponse
 import logging
+
 
 logger = logging.getLogger(__name__)
 
@@ -130,47 +132,57 @@ class StoreView(TemplateView):
         context['categories'] = categories
         return context
 
-class AnohLoginView(LoginView):
-    logger.debug('Выполнена аутентификация пользователя')
-    template_name = 'app_store/login.html'
+    def post(self, request):
+        product = request.POST.get('product')
+        remove = request.POST.get('remove')
+        cart = request.session.get('cart')
+        if cart:
+            quantity = cart.get(product)
+            if quantity:
+                if remove:
+                    if quantity<=1:
+                        cart.pop(product)
+                    else:
+                        cart[product]  = quantity-1
+                else:
+                    cart[product]  = quantity+1
 
-'''class Login(View):
+            else:
+                cart[product] = 1
+        else:
+            cart = {}
+            cart[product] = 1
+
+        request.session['cart'] = cart
+        print('cart', request.session['cart'])
+        return redirect('store')
+
+
+
+class Login(View):
     return_url = None
 
     def get(self, request):
         Login.return_url = request.GET.get ('return_url')
         return render (request, 'app_store/login.html')
 
-    def post(request):
-        email = request.POST['email']
-        password = request.POST['password']
-        user = authenticate(email=email, password=password)
-        customer = Customer.get_customer_by_email (email)
-        if user is not None:
-            flag = check_password (password, customer.password)
-            if flag:
-                request.session['customer'] = customer.id
-                return redirect('store/')
-            if user.is_active:
-                login(request, user)
-                return redirect('store/')
-            # Redirect to a success page.
-            else:
-                error_message = 'Invalid !!'
-                return render (request, 'app_store/login.html', {'error': error_message})
-            # Return a 'disabled account' error message
 
-        #else:
-            #return render (request, 'app_store/login.html', {'error': error_message})
-        # Return an 'invalid login' error message.'''
 
-'''    def post(self, request):
-        email = request.POST.get ('email')
-        password = request.POST.get ('password')
-        customer = Customer.get_customer_by_email (email)
-        error_message = None
+    def post(self, request):
+        #email = request.POST.get('email')
+        #password = request.POST.get('password')
+
+        customer = Customer.objects.get(email=request.POST['email'])
+        if customer.password == request.POST['password']:
+            request.session['customer'] = customer.id
+            return HttpResponse("You're logged in.")
+
+        '''customer = Customer.get_customer_by_email (email)
+        #error_message = None
         if customer:
-            flag = check_password (password, customer.password)
+            request.session['customer'] = customer.id
+            return render (request, 'app_store/index.html')
+            flag = check_password(password, customer.password)
             if flag:
                 request.session['customer'] = customer.id
 
@@ -178,31 +190,25 @@ class AnohLoginView(LoginView):
                     return HttpResponseRedirect (Login.return_url)
                 else:
                     Login.return_url = None
-                    return redirect ('homepage')
+                    return redirect ('store')
             else:
-                error_message = 'Invalid !!'
+                error_message = 'Invalid !!!'
         else:
             error_message = 'Invalid !!'
 
         print (email, password)
-        return render (request, 'app_store/login.html', {'error': error_message})'''
+        return render (request, 'app_store/login.html', {'error': error_message'})'''
 
 
-'''from django.contrib.auth import authenticate, login
-
-def my_view(request):
-    username = request.POST['username']
-    password = request.POST['password']
-    user = authenticate(username=username, password=password)
-    if user is not None:
-        if user.is_active:
-            login(request, user)
-            # Redirect to a success page.
-        else:
-            # Return a 'disabled account' error message
-            ...
+'''
+def login(request):
+    m = Member.objects.get(username=request.POST['username'])
+    if m.password == request.POST['password']:
+        request.session['member_id'] = m.id
+        return HttpResponse("You're logged in.")
     else:
-        # Return an 'invalid login' error message.'''
+        return HttpResponse("Your username and password didn't match.")
+        '''
 
 
 
