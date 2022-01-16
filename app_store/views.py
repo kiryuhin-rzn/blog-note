@@ -25,6 +25,8 @@ class Cart(View):
         print(products)
         return render(request , 'app_store/cart.html' , {'products' : products} )
 
+
+
 class CheckOut(View):
     def post(self, request):
         address = request.POST.get('address')
@@ -130,6 +132,7 @@ class StoreView(TemplateView):
         context['products'] = products
 
         context['categories'] = categories
+
         return context
 
     def post(self, request):

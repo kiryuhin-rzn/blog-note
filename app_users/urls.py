@@ -3,7 +3,7 @@ from app_users.views import UserAccountView, UserBalanceView, AnotherLoginView, 
 
 
 urlpatterns = [
-    path('login/', AnotherLoginView.as_view(), name='login'),
+    path('login/', AnotherLoginView.as_view(), name='account_login'),
     path('logout/', logout_view, name='logout'),
     path('register/', register_view, name='register'),
     path('account/', UserAccountView.as_view(), name='account'),
