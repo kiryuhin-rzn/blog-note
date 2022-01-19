@@ -26,7 +26,7 @@ class AboutView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(AboutView, self).get_context_data(**kwargs)
-        context['note_about'] = 'WebNote это веб блокнот.'
+        context['note_about'] = 'My projects.'
         return context
 
 

@@ -10,5 +10,10 @@
 </head>
 {% block content %}
 {{ note_about }}
+<ul>
+<li><a href="{% url 'note_list' %}">Note</a></li>
+<li><a href="{% url 'todo_list' %}">To Do</a></li>
+<li><a href="{% url 'store' %}">Store</a></li>
+</ul>
 {% endblock %}
 </html>
