@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Add React in One Minute</title>
+  </head>
+  <body>
+
+    <h2>Add React in One Minute</h2>
+    <p>This page demonstrates using React with no build tooling.</p>
+    <p>React is loaded as a script tag.</p>
+
+    <!-- We will put our React component inside this div. -->
+    <h1 align="center">Введите сумму</h1>
+    <div class="mainn">
+        <b>Конкурсная масса<b/><input type="text" id="summa_real" size="10">
+        <br>
+        <br>
+        <b>1)<b/><input type="text" id="first" size="10">
+        <b>2)<b/><input type="text" id="second" size="10">
+        <b>3)<b/><input type="text" id="three" size="10">
+        <b>4)<b/><input type="text" id="four" size="10">
+        <b>5)<b/><input type="text" id="five" size="10">
+        <b>6)<b/><input type="text" id="six" size="10">
+        <b>7)<b/><input type="text" id="seven" size="10">
+        <b>8)<b/><input type="text" id="eight" size="10">
+        <b>9)<b/><input type="text" id="nine" size="10">
+        <br>
+        <br>
+        <button id="go">=</button><br>
+        <h3 id="rez1"></h3> <!--//ответ -->
+        <h3 id="rez2"></h3>
+        <h3 id="rez3"></h3>
+        <h3 id="rez4"></h3>
+        <h3 id="rez5"></h3>
+        <h3 id="rez6"></h3>
+        <h3 id="rez7"></h3>
+        <h3 id="rez8"></h3>
+        <h3 id="rez9"></h3>
+        <h3 id="rez_proc"></h3>
+        <h3 id="sum_ss"></h3>
+    </div>
+    <script src="{% static 'js/calculator.js' %}"></script>
+
+    <div id="root"></div>
+
+    <!-- Load React. -->
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+    <!-- Load our React component. -->
+    <script src="{% static 'js/tic_tak.js' %}"></script>
+
+  </body>
+</html>
