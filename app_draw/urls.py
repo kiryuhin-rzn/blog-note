@@ -1,8 +1,9 @@
 from django.urls import path
-from app_draw.views import DrawView, ReactView
+from app_draw.views import DrawView, ReactView, CanvasView
 
 
 urlpatterns = [
     path('', DrawView.as_view(), name='draw'),
     path('react/', ReactView.as_view(), name='react'),
+    path('canvas/', CanvasView.as_view(), name='canvas'),
 ]

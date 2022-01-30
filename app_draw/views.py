@@ -10,3 +10,9 @@ class ReactView(TemplateView):
 
     template_name = "app_draw/app_react.html"
 
+
+class CanvasView(TemplateView):
+
+    template_name = "app_draw/canvasjs.html"
+
+
