@@ -1,0 +1,12 @@
+
+
+img{
+        position: relative; /* Required to move element */
+    }
+
+#sprite-image {
+  height: 325px;
+  width: 184px;
+  background: url("https://webisora.com/wp-content/uploads/2018/07/capguy-walk-1472.png")
+    0px 0px;
+}

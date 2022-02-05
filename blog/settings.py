@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'app_note',
     'app_todo',
     'app_store',
+    'app_weather',
+    'app_draw',
 ]
 
 MIDDLEWARE = [

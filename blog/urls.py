@@ -24,5 +24,7 @@ urlpatterns = [
     path('users/', include('app_users.urls')),
     path('', include('app_note.urls')),
     path('todo/', include('app_todo.urls')),
-    path('store/', include('app_store.urls'))
+    path('store/', include('app_store.urls')),
+    path('weather/', include('app_weather.urls')),
+    path('draw/', include('app_draw.urls'))
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

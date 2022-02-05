@@ -1,0 +1,38 @@
+{% load static %}
+<html>
+ <head>
+  <meta charset="utf-8"/>
+  <!--Подключаем библиотеку jquery-->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+  <link rel="stylesheet" href="{% static 'app_draw/css/js.css' %}">
+   </head>
+ <body>
+
+
+<form name="my">
+  <input name="one">
+  <!--<input name="two" value="2">-->
+</form>
+<p id="demo"></p>
+<script>
+  // получаем форму
+
+function displayUnput(){
+    let form = document.forms.my; // <form name="my"> element
+
+  // получаем элемент
+    let elem = form.elements.one; // <input name="one"> element
+    document.getElementById("demo").innerHTML = elem.value;//document.getElementById('inp_1').value; // 1
+}
+
+</script>
+<button onclick="displayUnput()">Отправить</button>
+
+<!--
+<canvas></canvas>
+<script src="{% static 'js/animate.js' %}"></script>
+<p id="demo"></p>
+-->
+ </body>
+</html>
