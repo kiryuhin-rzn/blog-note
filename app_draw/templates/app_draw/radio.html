@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<p><b>Каким браузером в основном пользуетесь:</b><Br>
+    <input type="radio" name="browser" value="ie"> Internet Explorer<Br>
+    <input type="radio" name="browser" value="opera"> Opera<Br>
+    <input type="radio" name="browser" value="firefox"> Firefox<Br>
+</p>
+
+<script>
+    function fun1(){
+        var rad = document.getElementsByName('browser');
+        for(i=0; i<rad.length; i++){
+            if(rad[i].checked){
+                document.getElementById("demo").innerHTML = ('Выбрана опция ' + rad[i].value);
+            }
+        }
+    }
+</script>
+<button onclick="fun1()">Click</button>
+<div id="demo"></div>
+
+
+
+
+
+
+
+</body>
+</html>

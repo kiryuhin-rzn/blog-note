@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+
+<body>
+<select name="" id="mySelect" onchange=fun1()>
+  <option value="">Apple</option>
+  <option value="">Orange</option>
+  <option value="">Banana</option>
+  <option value="">Strawberry</option>
+</select>
+
+<script>
+    function fun1(){
+        var sel = document.getElementById('mySelect').selectedIndex;
+        var optios = document.getElementById('mySelect').options;
+        document.getElementById("demo").innerHTML = ('Выбрана опция ' + optios[sel].text);
+    }
+</script>
+<div id="demo"></div>
+
+
+
+
+
+
+</body>
+</html>
