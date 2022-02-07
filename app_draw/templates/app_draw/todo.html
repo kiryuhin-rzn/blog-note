@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="myDIV" class="header">
+    <h2>To Do app</h2>
+    <input type="text" id="myInput" placeholder="Title">
+    <button onclick="newElement()">Add</button>
+    <span class="addBtn" onclick="newElement()">Add</span>
+    <ul id="myUL">
+        <li class="checked">Task 1</li>
+        <li>Task 2</li>
+        <li>Task 3</li>
+        <li>Task 4</li>
+        <li>Task 5</li>
+    </ul>
+</div>
+<script>
+    var myNodelist = document.getElementsByTagName('li');
+    var i;
+    for (i=0; i<myNodelist.length; i++){
+        var span = document.createElement('SPAN');
+        var txt = document.createTextNode('\u00D7');
+        span.className = 'close';
+        span.appendChild(txt);
+        myNodelist[i].appendChild(span);
+    }
+    var close = document.getElementsByClassName('close');
+    var i;
+    for (i=0; i<close.length; i++){
+        close[i].onclick = function(){
+            var div = this.parentElement;
+            div.stile.display = 'none';
+        }
+    }
+    var list = document.querySelector('ul');
+    list.addEventListener('click', function(ev){
+        if(ev.target.tagName ==='LI'){
+            ev.target.classList.toggle('checked');
+        }
+    }, false);
+    function newElement(){
+        var li = document.createElement('li');
+        var inputValue = document.getElementById('myInput').value;
+        var t = document.createTextNode(inputValue);
+        li.appendChild(t);
+        if (inputValue === ''){
+            alert('Поле не может быть пустым!');
+        }else{
+            document.getElementById('myUL').appendChild(li);
+        }
+    }
+</script>
+</body>
+</html>
