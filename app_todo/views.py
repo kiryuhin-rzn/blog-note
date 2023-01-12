@@ -19,7 +19,7 @@ class ToDoListView(generic.ListView):
         #queryset = user.object(all).order_by('date_due')
         #self.content = get_object_or_404(TodoListItem, user = self.request.user)
         if self.request.user.is_authenticated:
-            queryset = TodoListItem.objects.order_by('date_due').filter(user=self.request.user)
+            queryset = TodoListItem.objects.order_by('-date_due').filter(user=self.request.user)#было#TodoListItem.objects.order_by('date_due').filter(user=self.request.user)
             return queryset
         else:
             return HttpResponse("Чтобы создать свой To Do лист, необходимо зарегистрироваться!")
